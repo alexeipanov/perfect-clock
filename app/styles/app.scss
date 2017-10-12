@@ -1,0 +1,91 @@
+@import 'vars';
+@import 'functions';
+@import 'roboto';
+
+body {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  text-align: justify;
+  color: _color(text);
+  background-color: _color(bg);
+  margin: 0;
+
+  .ember-view {
+    width: 100%;
+  }
+
+  & > .ember-view {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(1rem, auto) 1fr minmax(1rem, auto);
+    min-height: 100vh;
+
+    header,
+    footer,
+    main {
+      display: grid;
+      justify-items: center;
+    }
+  }
+
+  .text-large {
+    font-size: 125%;
+  }
+
+  .text-bright {
+    color: _color(text-bright);
+  }
+
+  .clocks {
+    height: 100%;
+    display: grid;
+    align-items: center;
+
+    .clock {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: minmax(1rem, auto) minmax(1rem, auto);
+
+      .info {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: minmax(1rem, auto) minmax(1rem, auto);
+
+        div {
+          padding: 0 _size(base);
+        }
+
+        div:nth-child(2n+1) {
+          justify-self: right;
+          border-right: 1px solid _color(text);
+        }
+
+        div:nth-child(2n) {
+          justify-self: left;
+        }
+      }
+
+      .timeline {
+        width: 100vw;
+        overflow-x: auto;
+
+        .hours-wrapper {
+          display: grid;
+          grid-auto-columns: calc(100vw / 36);
+          grid-auto-flow: column;
+
+          .hour {
+            border-top: 1px solid _color(text);
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    font-size: 75%;
+  }
+
+}
