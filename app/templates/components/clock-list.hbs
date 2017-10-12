@@ -1,5 +1,5 @@
 <div class="clocks">
-  {{#each filtered as |city|}}
+  {{#each selected as |city|}}
     <div class="clock">
       <div class="info">
           <div class="city">{{city.name}}</div>
@@ -9,42 +9,9 @@
       </div>
       <div class="timeline">
         <div class="hours-wrapper">
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
-          <div class="hour">.</div>
+          {{#each hours as |hour|}}
+            <div class="hour {{if hour.working 'working'}}" data-timestamp="hour.time">{{moment-format (unix hour.time) 'h'}}</div>
+          {{/each}}
         </div>
       </div>
     </div>
