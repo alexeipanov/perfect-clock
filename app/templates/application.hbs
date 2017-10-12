@@ -1,5 +1,7 @@
 <header>
-  <input type="text" name="search">
+  <div>
+    {{#link-to 'search' classNames='search'}}<img src="assets/images/find.svg" class="search-icon">{{/link-to}}
+  </div>
 </header>
 <main>
   {{outlet}}

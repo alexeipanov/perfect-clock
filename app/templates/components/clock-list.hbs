@@ -10,7 +10,7 @@
       <div class="timeline">
         <div class="hours-wrapper">
           {{#each hours as |hour|}}
-            <div class="hour {{if hour.working 'working'}}" data-timestamp="hour.time">{{moment-format (unix hour.time) 'h'}}</div>
+            <div class="hour {{if hour.working 'working'}}" data-timestamp="{{hour.time}}">{{moment-format (unix hour.time) 'h'}}</div>
           {{/each}}
         </div>
       </div>

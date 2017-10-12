@@ -28,6 +28,11 @@ body {
       display: grid;
       justify-items: center;
     }
+
+    header,
+    footer {
+      padding: 0.5rem 0;
+    }
   }
 
   .text-large {
@@ -36,6 +41,16 @@ body {
 
   .text-bright {
     color: _color(text-bright);
+  }
+
+  .search {
+    display: flex;
+    justify-content: center;
+
+    .search-icon {
+      width: 24px;
+    }
+
   }
 
   .clocks {

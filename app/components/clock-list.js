@@ -13,12 +13,14 @@ export default Ember.Component.extend({
   }),
   didInsertElement(...params) {
     this._super(...params);
-    let startTime = moment().subtract(18, 'hours');
-    let time, isWorking;
-    for (let i = 0; i < 36; i++) {
-      time = startTime.add(1, 'hours');
-      isWorking = time.hour() >= 8 && time.hour() <= 19
-      this.get('hours').addObject({time: time.unix(), working: isWorking});
+    if (!this.get('hours').length) {
+      let startTime = moment().subtract(18, 'hours');
+      let time, isWorking;
+      for (let i = 0; i < 36; i++) {
+        time = startTime.add(1, 'hours');
+        isWorking = time.hour() >= 8 && time.hour() <= 19
+        this.get('hours').addObject({time: time.unix(), working: isWorking});
+      }
     }
   }
 });
