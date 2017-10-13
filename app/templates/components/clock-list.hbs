@@ -1,11 +1,12 @@
+<button {{action 'toNow'}}>Now</button>
 <div class="clocks">
   {{#each selected as |city|}}
     <div class="clock">
       <div class="info">
           <div class="city">{{city.name}}</div>
-          <div class="date">{{moment-format (now interval=3600000) 'dddd, D MMMM YYYY'}}</div>
+          <div class="date">{{moment-format (unix selectedTime) 'dddd, D MMMM YYYY'}}</div>
           <div class="temp text-large">18</div>
-          <div class="time text-large text-bright">{{moment-format (now interval=60000) 'HH:mm A'}}</div>
+          <div class="time text-large text-bright">{{moment-format (unix selectedTime) 'h:mm a'}}</div>
       </div>
       <div class="timeline">
         <div class="hours-wrapper">
