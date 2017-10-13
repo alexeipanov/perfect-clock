@@ -47,10 +47,11 @@ body {
     display: flex;
     justify-content: center;
 
-    .search-icon {
+    .search-icon,
+    .close-icon {
       width: 24px;
+      height: 24px;
     }
-
   }
 
   .clocks {

@@ -1,10 +1,10 @@
 <header>
   <div>
-    {{#link-to 'search' classNames='search'}}<img src="assets/images/find.svg" class="search-icon">{{/link-to}}
+    {{outlet 'search-form'}}
   </div>
 </header>
 <main>
-  {{outlet}}
+  {{outlet 'main'}}
 </main>
 <footer>
   <p>Rdea International Clock</p>
