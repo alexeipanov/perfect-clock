@@ -40,7 +40,7 @@ export default Ember.Service.extend({
         name: 'Kiev',
       },
     ]);
-    this.set('defaultIDs', [1, 3, 7]);
+    this.set('defaultIds', [1, 3, 7]);
   }
 });
 
