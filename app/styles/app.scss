@@ -12,6 +12,10 @@ body {
   background-color: _color(bg);
   margin: 0;
 
+  a {
+    color: _color(link);
+  }
+
   .ember-view {
     width: 100%;
   }
@@ -128,28 +132,32 @@ body {
     .info {
       position: fixed;
       display: grid;
-      left: calc(100vw / 2 - 150px);
-      grid-template-columns: 50% 50%;
-          grid-template-rows: minmax(1rem, auto) minmax(1rem, auto);
+      left: calc(100vw / 2 - 240px);
+      height: 55px;
+      grid-template-columns: 240px 240px;
+      grid-template-rows: minmax(1rem, auto) minmax(1rem, auto);
 
       div {
-            padding: 0 _size(base);
-          }
+        padding: 0 _size(base);
+      }
 
-          div:nth-child(2n+1) {
-            justify-self: right;
-            border-right: 1px solid _color(text);
-          }
+      div:nth-child(2n+1) {
+        justify-self: right;
+        border-right: 1px solid _color(text);
+      }
 
-          div:nth-child(2n) {
-            justify-self: left;
-          }
+      div:nth-child(2n) {
+        justify-self: left;
+      }
+
+      .time {
+
+      }
     }
 
     .hours-wrapper {
-      margin-top: 80px;
+      margin-top: 55px;
       display: grid;
-      grid-auto-columns: calc(100vw / 36);
       grid-auto-flow: column;
 
       .hour {
@@ -173,6 +181,28 @@ body {
     }
   }
 
+  @media (max-width: 960px) {
 
+    .hours-wrapper {
+      grid-auto-columns: calc(100vw / 12);
+    }
+
+  }
+
+  @media (max-width: 1280px) and (min-width: 961px) {
+
+    .hours-wrapper {
+      grid-auto-columns: calc(100vw / 18);
+    }
+
+  }
+
+  @media (min-width: 1281px) {
+
+    .hours-wrapper {
+      grid-auto-columns: calc(100vw / 36);
+    }
+
+  }
 
 }

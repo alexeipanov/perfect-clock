@@ -2,6 +2,7 @@ $palette: (
   bg: rgb(24, 24, 24),
   text: rgb(90, 90, 90),
   text-bright: rgb(255, 255, 255),
+  link: rgb(0, 155, 255),
 );
 
 $size: (
@@ -9,5 +10,6 @@ $size: (
 );
 
 $duration: (
-  // hover: 0.5s,
+  hover: 0.5s,
+  fade-time: .25s
 );
