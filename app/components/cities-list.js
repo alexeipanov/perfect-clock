@@ -35,6 +35,8 @@ export default Ember.Component.extend({
   },
   timelineStart(x) {
     let citiesElement = document.getElementsByClassName('cities')[0];
+    let infoElements = document.getElementsByClassName('info');
+    Array.from(infoElements).forEach((item) => item.classList.add('fadeout'));
     this.set('startX', x);
     this.set('isDragging', true);
     this.set('selectedPosition', citiesElement.scrollLeft);
