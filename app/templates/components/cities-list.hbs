@@ -1,0 +1,20 @@
+<div class="cities">
+  <div>
+    <button {{action 'toNow'}} style="position: fixed;">Now</button>
+  </div>
+  {{#each selected as |city|}}
+    <div class="city">
+      <div class="info">
+        <div class="city-title">{{city.name}}</div>
+        <div class="date">{{moment-format (local-time source=selectedTime offset=city.utc) 'dddd, D MMMM YYYY'}}</div>
+        <div class="temp text-large">18</div>
+        <div id="time-title" class="time text-large text-bright">{{moment-format (local-time source=selectedTime offset=city.utc) 'h:mm a'}}</div>
+      </div>
+      <div class="hours-wrapper" draggable="true">
+        {{#each hours as |hour|}}
+          <div class="hour {{if (is-working source=hour.time offset=city.utc) 'working'}}" data-timestamp="{{hour.time}}" {{action 'hourClick' hour.time}}>{{moment-format (local-time source=hour.time offset=city.utc) 'h'}}</div>
+        {{/each}}
+      </div>
+    </div>
+  {{/each}}
+</div>

@@ -11,9 +11,9 @@ export default Ember.Component.extend({
   selectedTime: null,
   selectedPosition: null,
   selected: Ember.computed('cities', function() {
-    let defaults = this.get('cities').defaultIDs;
+    let selectedCities = JSON.parse(localStorage.getItem('citiesIds')) || this.get('cities').defaultIds;
     return this.get('cities').items.filter(function(item) {
-      return defaults.some(elem => elem === item.id)
+      return selectedCities.some(elem => elem === item.id)
     });
   }),
   didInsertElement() {
