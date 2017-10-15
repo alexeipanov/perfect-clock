@@ -16,7 +16,7 @@ body {
     color: _color(link);
   }
 
-  .ember-view {
+  & > .ember-view {
     width: 100%;
   }
 
@@ -152,6 +152,26 @@ body {
 
       .time {
 
+      }
+
+      &.is-updated {
+
+        .time,
+        .date {
+          animation-timing-function: ease-in-out;
+          animation-duration: _duration(fade-time);
+          animation-name: fadein;
+        }
+
+        @keyframes fadein {
+          from {
+            opacity: 0;
+          }
+
+          to {
+           opacity: 1;
+         }
+        }
       }
     }
 
