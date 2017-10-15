@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 export default Ember.Component.extend({
   cities: service('cities'),
   selectedCities: Ember.computed('cities.defaultIds', function() {
-    return JSON.parse(localStorage.getItem('citiesIds')) || this.get('cities').defaultIDs;
+    return JSON.parse(localStorage.getItem('citiesIds')) || this.get('cities').defaultIds;
   }),
   filteredCities: Ember.computed('cities', function() {
     return this.get('cities').items.filter(item => this.get('selectedCities').some(elem => elem === item.id));
@@ -16,14 +16,14 @@ export default Ember.Component.extend({
         if (this.get('selectedCities').length > 1) {
           this.get('selectedCities').removeAt(index);
         } else {
-          this.set('error', 'can\'t delete all cities!');
+          this.set('error', 'Can\'t delete all cities!');
           return;
         }
       } else {
         if (this.get('selectedCities').length < 5) {
           this.get('selectedCities').pushObject(id);
         } else {
-          this.set('error', 'can\'t add more then 5 cities!');
+          this.set('error', 'You\'ve reached the maximum of 5 cities!');
           return;
         }
       }
