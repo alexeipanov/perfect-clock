@@ -9,4 +9,4 @@
   <div {{action 'toggleCity' city.id}}><i class="check">{{if (in-array array=selectedCities element=city.id) 'v '}}</i>{{city.name}}</div>
   {{/each}}
 </div>
-{{#link-to 'index'}}back to clock{{/link-to}}
+{{#link-to 'index' tagName='button'}}Back to clock{{/link-to}}
