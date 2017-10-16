@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['info'],
-  classNameBindings: ['isUpdated'],
+  // classNameBindings: ['isUpdated'],
   isUpdated: false,
   didInsertElement() {
     this.get('element').addEventListener('animationend', this.removeClass.bind(this), false);

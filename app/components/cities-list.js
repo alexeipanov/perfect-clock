@@ -22,7 +22,7 @@ export default Ember.Component.extend({
     if (!this.get('hours').length) {
       let startTime = moment().subtract(19, 'hours').minute(0).second(0).millisecond(0);
       let time;
-      for (let i = 0; i < 36; i++) {
+      for (let i = 0; i < 24 * 7; i++) {
         time = startTime.add(1, 'hours');
         this.get('hours').addObject({ time: time.unix() });
       }
@@ -94,7 +94,7 @@ export default Ember.Component.extend({
     },
     addHours(time) {
       let newTime;
-      for (let i = 1; i <= 6; i++) {
+      for (let i = 1; i <= 24 * 7; i++) {
         newTime = moment.unix(time).add(i, 'hours');
         this.get('hours').addObject({ time: newTime.unix() });
       }
