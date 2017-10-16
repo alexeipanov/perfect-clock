@@ -1,4 +1,4 @@
 <div class="city-title">{{city.name}}</div>
 <div class="date">{{moment-format (local-time source=time offset=city.utc) 'dddd, D MMMM YYYY'}}</div>
 <div class="temp text-large">18</div>
-<div class="time text-large text-bright">{{moment-format (local-time source=time offset=city.utc) 'h:mm a'}}</div>
+<div class="time text-large text-bright" {{action 'onTimeClick' 1}}>{{moment-format (local-time source=time offset=city.utc) 'h:mm a'}}</div>

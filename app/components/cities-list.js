@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { inject as service } from '@ember/service';
 import moment from 'moment';
 
+let week = 24 * 7;
+
 export default Ember.Component.extend({
   cities: service('cities'),
   hours: [],
@@ -19,14 +21,7 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.addObserver('selectedTime', this, 'timeChange');
     this.set('selectedTime', moment().utc().unix());
-    if (!this.get('hours').length) {
-      let startTime = moment().subtract(19, 'hours').minute(0).second(0).millisecond(0);
-      let time;
-      for (let i = 0; i < 24 * 7; i++) {
-        time = startTime.add(1, 'hours');
-        this.get('hours').addObject({ time: time.unix() });
-      }
-    }
+    this.send('addNextHours', week);
   },
   timeChange() {
     let citiesElement = document.getElementsByClassName('cities')[0];
@@ -41,8 +36,7 @@ export default Ember.Component.extend({
     this.set('isDragging', true);
     this.set('selectedPosition', citiesElement.scrollLeft);
     if ((citiesElement.scrollLeft + citiesElement.clientWidth) === citiesElement.scrollWidth) {
-      let lastTime = this.get('hours.lastObject.time');
-      this.send('addHours', lastTime);
+      this.send('addNextHours', week);
     }
   },
   timelineMove(x) {
@@ -92,11 +86,15 @@ export default Ember.Component.extend({
     scrollTimeline(citiesElement) {
       citiesElement.scrollLeft = this.get('selectedPosition') + this.get('startX') - this.get('endX');
     },
-    addHours(time) {
-      let newTime;
-      for (let i = 1; i <= 24 * 7; i++) {
-        newTime = moment.unix(time).add(i, 'hours');
-        this.get('hours').addObject({ time: newTime.unix() });
+    addNextHours(duration) {
+      let lastTime;
+      if (this.get('hours').length) {
+        lastTime = moment.unix(this.get('hours.lastObject.time'));
+      } else {
+        lastTime = moment().subtract(19, 'hours').minute(0).second(0).millisecond(0);
+      }
+      for (let i = 1; i <= duration; i++) {
+        this.get('hours').addObject({ time: lastTime.add(1, 'hours').unix() });
       }
     },
     toNow() {

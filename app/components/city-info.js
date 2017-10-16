@@ -12,5 +12,10 @@ export default Ember.Component.extend({
   },
   removeClass() {
     this.set('isUpdated', false);
+  },
+  actions: {
+    onTimeClick(duration) {
+      this.get('onTimeClick')(duration);
+    }
   }
 });
