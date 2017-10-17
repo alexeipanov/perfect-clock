@@ -2,6 +2,8 @@ import Ember from 'ember';
 import { inject as service } from '@ember/service';
 
 export default Ember.Component.extend({
+  classNames: ['search'],
+  tagName: 'section',
   cities: service('cities'),
   selectedCities: Ember.computed('cities.defaultIds', function() {
     return JSON.parse(localStorage.getItem('citiesIds')) || this.get('cities').defaultIds;

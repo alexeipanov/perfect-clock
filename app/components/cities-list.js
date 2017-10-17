@@ -5,6 +5,8 @@ import moment from 'moment';
 let week = 24 * 7;
 
 export default Ember.Component.extend({
+  classNames: ['cities'],
+  tagName: 'section',
   cities: service('cities'),
   hours: [],
   startX: null,
