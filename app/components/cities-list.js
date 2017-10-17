@@ -2,7 +2,8 @@ import Ember from 'ember';
 import { inject as service } from '@ember/service';
 import moment from 'moment';
 
-let week = 24 * 7;
+let day = 24;
+let week = day * 7;
 
 export default Ember.Component.extend({
   classNames: ['cities'],
@@ -13,6 +14,7 @@ export default Ember.Component.extend({
   endX: null,
   isDragging: false,
   selectedTime: null,
+  displayTime: null,
   selectedPosition: null,
   selected: Ember.computed('cities', function() {
     let selectedCities = JSON.parse(localStorage.getItem('citiesIds')) || this.get('cities').defaultIds;
@@ -24,11 +26,24 @@ export default Ember.Component.extend({
     this.addObserver('selectedTime', this, 'timeChange');
     this.set('selectedTime', moment().utc().unix());
     this.send('addNextHours', week);
+    this.send('addPrevHours', day);
   },
   timeChange() {
     let citiesElement = this.get('element');
     let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes') - 18 * 60) / (this.get('hours').length * 60) * citiesElement.scrollWidth;
     citiesElement.scrollLeft = offset;
+    this.set('displayTime', this.get('selectedTime'));
+  },
+  timeDiff() {
+    let citiesElement = this.get('element');
+    let duration = Math.round((citiesElement.scrollLeft - this.get('selectedPosition')) / citiesElement.scrollWidth * this.get('hours').length * 60);
+    let diff;
+    if (duration >= 0) {
+      diff = moment.unix(this.get('selectedTime')).add(duration, 'minutes').second(0).millisecond(0).unix();
+    } else {
+      diff = moment.unix(this.get('selectedTime')).subtract(duration * -1, 'minutes').second(0).millisecond(0).unix();
+    }
+    return diff;
   },
   timelineStart(x) {
     let citiesElement = this.get('element');
@@ -40,25 +55,20 @@ export default Ember.Component.extend({
     if ((citiesElement.scrollLeft + citiesElement.clientWidth) === citiesElement.scrollWidth) {
       this.send('addNextHours', week);
     }
+    if (citiesElement.scrollLeft === 0) {
+      this.send('addPrevHours', week);
+    }
   },
   timelineMove(x) {
     if (this.get('isDragging')) {
-      let citiesElement = this.get('element');
       this.set('endX', x);
       this.send('scrollTimeline');
+      this.set('displayTime', this.timeDiff());
     }
   },
   timelineEnd() {
-    let citiesElement = this.get('element');
     this.set('isDragging', false);
-    // if (Math.abs(this.get('startX') - this.get('endX')) > 10) {
-      let duration = Math.round((citiesElement.scrollLeft - this.get('selectedPosition')) / citiesElement.scrollWidth * this.get('hours').length * 60);
-      if (duration >= 0) {
-        this.set('selectedTime', moment.unix(this.get('selectedTime')).add(duration, 'minutes').second(0).millisecond(0).unix());
-      } else {
-        this.set('selectedTime', moment.unix(this.get('selectedTime')).subtract(duration * -1, 'minutes').second(0).millisecond(0).unix());
-      }
-    // }
+    this.set('selectedTime', this.timeDiff());
   },
   touchStart(event) {
     event.preventDefault();
@@ -100,11 +110,17 @@ export default Ember.Component.extend({
         this.get('hours').addObject({ time: lastTime.add(1, 'hours').unix() });
       }
     },
+    addPrevHours(duration) {
+      let firstTime = moment.unix(this.get('hours.firstObject.time'));
+      for (let i = 1; i <= duration; i++) {
+        this.get('hours').unshiftObject({ time: firstTime.subtract(1, 'hours').unix() });
+      }
+    },
     toNow() {
       this.set('selectedTime', moment().unix());
     },
     hourClick(time) {
-      console.log('hour event ' + time);
+      console.log('hour event: ' + time);
     }
   }
 });

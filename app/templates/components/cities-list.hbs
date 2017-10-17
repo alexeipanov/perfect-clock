@@ -8,7 +8,7 @@
 </header>
 {{#each selected as |city|}}
   <div class="city">
-    {{city-info city=city time=selectedTime onTimeClick=(action 'addNextHours')}}
+    {{city-info city=city time=displayTime onTimeClick=(action 'addNextHours')}}
     <div class="hours-wrapper">
       {{#each hours as |hour|}}
         <div class="hour {{if (is-working source=hour.time offset=city.utc) 'working'}}" data-timestamp="{{hour.time}}" {{action 'hourClick' hour.time}}>{{moment-format (local-time source=hour.time offset=city.utc) 'h'}}</div>
