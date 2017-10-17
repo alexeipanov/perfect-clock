@@ -16,6 +16,7 @@ export default Ember.Component.extend({
   selectedTime: null,
   displayTime: null,
   selectedPosition: null,
+  isCurrent: true,
   selected: Ember.computed('cities', function() {
     let selectedCities = JSON.parse(localStorage.getItem('citiesIds')) || this.get('cities').defaultIds;
     return this.get('cities').items.filter(function(item) {
@@ -25,14 +26,22 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.addObserver('selectedTime', this, 'timeChange');
     this.set('selectedTime', moment().utc().unix());
+    this.set('displayTime', this.timer);
     this.send('addNextHours', week);
     this.send('addPrevHours', day);
   },
+  timer: Ember.computed('selectedTime', function() {
+    if (this.get('isCurrent')) {
+      Ember.run.later(this, () => {
+        this.set('selectedTime', moment().utc().unix());
+      }, 1000);
+      return this.get('selectedTime');
+    }
+  }),
   timeChange() {
     let citiesElement = this.get('element');
     let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes') - 18 * 60) / (this.get('hours').length * 60) * citiesElement.scrollWidth;
     citiesElement.scrollLeft = offset;
-    this.set('displayTime', this.get('selectedTime'));
   },
   timeDiff() {
     let citiesElement = this.get('element');
@@ -51,6 +60,7 @@ export default Ember.Component.extend({
     // Array.from(infoElements).forEach((item) => item.classList.add('fadeout'));
     this.set('startX', x);
     this.set('isDragging', true);
+    this.set('isCurrent', false);
     this.set('selectedPosition', citiesElement.scrollLeft);
     if ((citiesElement.scrollLeft + citiesElement.clientWidth) === citiesElement.scrollWidth) {
       this.send('addNextHours', week);
@@ -117,7 +127,9 @@ export default Ember.Component.extend({
       }
     },
     toNow() {
-      this.set('selectedTime', moment().unix());
+      this.set('isCurrent', true);
+      this.set('selectedTime', moment().utc().unix());
+      this.set('displayTime', this.timer);
     },
     hourClick(time) {
       console.log('hour event: ' + time);
