@@ -26,14 +26,14 @@ export default Ember.Component.extend({
     this.send('addNextHours', week);
   },
   timeChange() {
-    let citiesElement = document.getElementsByClassName('cities')[0];
-    let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'hours') - 18) / this.get('hours').length * citiesElement.scrollWidth;
+    let citiesElement = this.get('element');
+    let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes') - 18 * 60) / (this.get('hours').length * 60) * citiesElement.scrollWidth;
     citiesElement.scrollLeft = offset;
   },
   timelineStart(x) {
-    let citiesElement = document.getElementsByClassName('cities')[0];
-    let infoElements = document.getElementsByClassName('info');
-    Array.from(infoElements).forEach((item) => item.classList.add('fadeout'));
+    let citiesElement = this.get('element');
+    // let infoElements = document.getElementsByClassName('info');
+    // Array.from(infoElements).forEach((item) => item.classList.add('fadeout'));
     this.set('startX', x);
     this.set('isDragging', true);
     this.set('selectedPosition', citiesElement.scrollLeft);
@@ -43,22 +43,22 @@ export default Ember.Component.extend({
   },
   timelineMove(x) {
     if (this.get('isDragging')) {
-      let citiesElement = document.getElementsByClassName('cities')[0];
+      let citiesElement = this.get('element');
       this.set('endX', x);
-      this.send('scrollTimeline', citiesElement);
+      this.send('scrollTimeline');
     }
   },
   timelineEnd() {
-    let citiesElement = document.getElementsByClassName('cities')[0];
+    let citiesElement = this.get('element');
     this.set('isDragging', false);
-    if (Math.abs(this.get('startX') - this.get('endX')) > 10) {
-      let duration = Math.round((citiesElement.scrollLeft - this.get('selectedPosition')) / citiesElement.scrollWidth * this.get('hours').length);
+    // if (Math.abs(this.get('startX') - this.get('endX')) > 10) {
+      let duration = Math.round((citiesElement.scrollLeft - this.get('selectedPosition')) / citiesElement.scrollWidth * this.get('hours').length * 60);
       if (duration >= 0) {
-        this.set('selectedTime', moment.unix(this.get('selectedTime')).add(duration, 'hours').minute(0).second(0).millisecond(0).unix());
+        this.set('selectedTime', moment.unix(this.get('selectedTime')).add(duration, 'minutes').second(0).millisecond(0).unix());
       } else {
-        this.set('selectedTime', moment.unix(this.get('selectedTime')).subtract(duration * -1, 'hours').minute(0).second(0).millisecond(0).unix());
+        this.set('selectedTime', moment.unix(this.get('selectedTime')).subtract(duration * -1, 'minutes').second(0).millisecond(0).unix());
       }
-    }
+    // }
   },
   touchStart(event) {
     event.preventDefault();
@@ -85,7 +85,8 @@ export default Ember.Component.extend({
     this.timelineEnd();
   },
   actions: {
-    scrollTimeline(citiesElement) {
+    scrollTimeline() {
+      let citiesElement = this.get('element');
       citiesElement.scrollLeft = this.get('selectedPosition') + this.get('startX') - this.get('endX');
     },
     addNextHours(duration) {
