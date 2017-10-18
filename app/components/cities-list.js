@@ -29,14 +29,14 @@ export default Ember.Component.extend({
     this.set('displayTime', this.timer);
     this.send('addNextHours', week);
     this.send('addPrevHours', day);
+    let citiesElement = this.get('element');
+    citiesElement.addEventListener('scroll', this.scroll.bind(this));
   },
   timer: Ember.computed('selectedTime', function() {
-    if (this.get('isCurrent')) {
-      Ember.run.later(this, () => {
-        this.set('selectedTime', moment().utc().unix());
-      }, 1000);
-      return this.get('selectedTime');
-    }
+    Ember.run.later(this, () => {
+      this.set('selectedTime', moment().utc().unix());
+    }, 1000);
+    return this.get('selectedTime');
   }),
   timeChange() {
     let citiesElement = this.get('element');
@@ -53,6 +53,12 @@ export default Ember.Component.extend({
       diff = moment.unix(this.get('selectedTime')).subtract(duration * -1, 'minutes').second(0).millisecond(0).unix();
     }
     return diff;
+  },
+  scroll(event) {
+    if (this.get('isDragging')) {
+      this.set('endX', event.target.scrollLeft);
+      this.set('displayTime', this.timeDiff());
+    }
   },
   timelineStart(x) {
     let citiesElement = this.get('element');
