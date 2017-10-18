@@ -16,27 +16,6 @@ body {
     color: _color(link);
   }
 
-  // & > .ember-view {
-  //   width: 100%;
-  // }
-
-  // & > .ember-view {
-  //   display: grid;
-  //   grid-template-columns: 1fr;
-  //   grid-template-rows: minmax(1rem, auto) 1fr minmax(1rem, auto);
-  //   min-height: 100vh;
-
-  //   header,
-  //   main {
-  //     display: grid;
-  //     justify-items: center;
-  //   }
-
-  //   header {
-  //     padding: 0.5rem 0;
-  //   }
-  // }
-
   header {
     position: fixed;
     display: grid;
@@ -161,6 +140,7 @@ body {
       margin-top: 56px;
       display: grid;
       grid-auto-flow: column;
+      grid-auto-columns: 60px;
 
       .hour {
         border-top: 1px solid _color(text);
@@ -191,30 +171,6 @@ body {
       div {
         width: 210px;
       }
-    }
-
-  }
-
-  @media (max-width: 960px) {
-
-    .hours-wrapper {
-      grid-auto-columns: calc(100vw / 12);
-    }
-
-  }
-
-  @media (max-width: 1280px) and (min-width: 961px) {
-
-    .hours-wrapper {
-      grid-auto-columns: calc(100vw / 18);
-    }
-
-  }
-
-  @media (min-width: 1281px) {
-
-    .hours-wrapper {
-      grid-auto-columns: calc(100vw / 36);
     }
 
   }

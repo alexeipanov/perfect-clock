@@ -40,7 +40,8 @@ export default Ember.Component.extend({
   }),
   timeChange() {
     let citiesElement = this.get('element');
-    let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes') - 18 * 60) / (this.get('hours').length * 60) * citiesElement.scrollWidth;
+    // let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes') - 18 * 60) / (this.get('hours').length * 60) * citiesElement.scrollWidth;
+    let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes')) / (this.get('hours').length * 60) * citiesElement.scrollWidth - 1 / 2 * citiesElement.offsetWidth;
     citiesElement.scrollLeft = offset;
   },
   timeDiff() {
