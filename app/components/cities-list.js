@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { inject as service } from '@ember/service';
 import moment from 'moment';
 
 let day = 24;
@@ -8,7 +7,6 @@ let week = day * 7;
 export default Ember.Component.extend({
   classNames: ['cities'],
   tagName: 'section',
-  cities: service('cities'),
   hours: [],
   startX: null,
   endX: null,
