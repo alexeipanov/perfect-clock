@@ -2,6 +2,10 @@
 @import 'functions';
 @import 'sf';
 
+:root {
+  --tx: 0;
+}
+
 body {
   font-family: "San Francisco", Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -62,8 +66,10 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
-    overflow-x: auto;
+    overflow-x: hidden;
     touch-action: none;
+
+
 
     .city {
       display: grid;
@@ -141,6 +147,10 @@ body {
       display: grid;
       grid-auto-flow: column;
       grid-auto-columns: 60px;
+
+      transform: translateX(var(--tx));
+      transition: transform 0.5s ease-in-out;
+      will-change: transform;
 
       .hour {
         border-top: 1px solid _color(text);
