@@ -7,6 +7,8 @@ let week = day * 7;
 export default Ember.Component.extend({
   classNames: ['cities'],
   tagName: 'section',
+  attributeBindings: ['tabindex'],
+  tabindex: 1,
   hours: [],
   startX: null,
   endX: null,
@@ -28,6 +30,7 @@ export default Ember.Component.extend({
     this.send('addNextHours', week);
     this.send('addPrevHours', day);
     let citiesElement = this.get('element');
+    citiesElement.focus();
     citiesElement.addEventListener('scroll', this.scroll.bind(this));
   },
   timer: Ember.computed('selectedTime', function() {
@@ -108,7 +111,20 @@ export default Ember.Component.extend({
     event.preventDefault();
     this.timelineEnd();
   },
+  keyUp(event) {
+    event.preventDefault();
+    let action = this.get('shortcuts').resolveAction({ key: event.keyCode, shift: event.shiftKey });
+    if (action) {
+      this.send(action);
+    }
+  },
   actions: {
+    search() {
+      this.get('controller').transitionToRoute('search');
+    },
+    addEvent() {
+      console.log('add event');
+    },
     scrollTimeline() {
       let citiesElement = this.get('element');
       citiesElement.scrollLeft = this.get('selectedPosition') + this.get('startX') - this.get('endX');

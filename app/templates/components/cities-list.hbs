@@ -1,6 +1,6 @@
 <header>
   <div>
-    {{#link-to 'search' classNames='search'}}<img src="assets/images/find.svg" class="search-icon">{{/link-to}}
+    <div class="search"><img src="assets/images/find.svg" class="search-icon" {{action 'search'}}></div>
   </div>
   <div>
     {{#unless isCurrent}}
