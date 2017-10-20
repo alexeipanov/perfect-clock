@@ -7,8 +7,6 @@ let week = day * 7;
 export default Ember.Component.extend({
   classNames: ['cities'],
   tagName: 'section',
-  attributeBindings: ['tabindex'],
-  tabindex: 1,
   hours: [],
   startX: null,
   endX: null,
@@ -26,63 +24,22 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.addObserver('selectedTime', this, 'timeChange');
     this.set('selectedTime', moment().utc().unix());
+    this.set('displayTime', this.timer);
     this.send('addNextHours', week);
     this.send('addPrevHours', day);
     let citiesElement = this.get('element');
-    citiesElement.focus();
-    this.set('displayTime', Ember.computed('selectedTime', function() {
-      this.timer();
-      return this.get('selectedTime'); })
-    );
-    let style = document.documentElement.style;
-    style.setProperty('--tx', citiesElement.scrollLeft  + 'px');
+    citiesElement.addEventListener('scroll', this.scroll.bind(this));
   },
-  animate(options) {
-    let start = performance.now();
-    requestAnimationFrame(function animate(time) {
-      let interval = (time - start) / options.duration;
-      if (interval > 1) interval = 1;
-      let progress = options.timing(interval)
-      options.draw(progress, options.start, options.offset);
-      if (interval < 1) {
-        requestAnimationFrame(animate);
-      }
-    });
-  },
-  easeInOut(interval) {
-    return interval < .5 ? 4 * interval * interval * interval : (interval - 1) * (2 * interval - 2) * (2 * interval - 2) + 1;
-  },
-  drawTimeline(progress, start, offset) {
-    let citiesElement = this.get('element');
-    citiesElement.scrollLeft = start + offset * progress;
-  },
-  timer() {
-    return Ember.run.later(this, () => {
+  timer: Ember.computed('selectedTime', function() {
+    Ember.run.later(this, () => {
       this.set('selectedTime', moment().utc().unix());
     }, 1000);
-  },
+    return this.get('selectedTime');
+  }),
   timeChange() {
     let citiesElement = this.get('element');
-    var offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes')) / (this.get('hours').length * 60) * citiesElement.scrollWidth - 1 / 2 * citiesElement.offsetWidth;
-    if (this.get('selectedTime') > this.get('hours.lastObject.time')) {
-      this.send('addNextHours', week);
-    }
-    if (this.get('selectedTime') < this.get('hours.firstObject.time')) {
-      this.send('addPrevHours', week);
-    }
-    if (this.get('isCurrent') || this.get('isDragging')) {
-       citiesElement.scrollLeft = offset;
-    } else {
-      let style = document.documentElement.style;
-      style.setProperty('--tx', offset + 'px');
-    //   this.animate({
-    //     duration: 1000,
-    //     start: citiesElement.scrollLeft,
-    //     offset: offset,
-    //     timing: this.easeInOut,
-    //     draw: this.drawTimeline.bind(this)
-    //   });
-    }
+    let offset = (moment.unix(this.get('selectedTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes')) / (this.get('hours').length * 60) * citiesElement.scrollWidth - 1 / 2 * citiesElement.offsetWidth;
+    citiesElement.scrollLeft = offset;
   },
   timeDiff() {
     let citiesElement = this.get('element');
@@ -94,6 +51,12 @@ export default Ember.Component.extend({
       diff = moment.unix(this.get('selectedTime')).subtract(duration * -1, 'minutes').second(0).millisecond(0).unix();
     }
     return diff;
+  },
+  scroll(event) {
+    if (this.get('isDragging')) {
+      this.set('endX', event.target.scrollLeft);
+      this.set('displayTime', this.timeDiff());
+    }
   },
   timelineStart(x) {
     let citiesElement = this.get('element');
@@ -118,8 +81,8 @@ export default Ember.Component.extend({
     }
   },
   timelineEnd() {
-    this.set('selectedTime', this.timeDiff());
     this.set('isDragging', false);
+    this.set('selectedTime', this.timeDiff());
   },
   touchStart(event) {
     event.preventDefault();
@@ -145,39 +108,10 @@ export default Ember.Component.extend({
     event.preventDefault();
     this.timelineEnd();
   },
-  keyUp(event) {
-    event.preventDefault();
-    let action = this.get('shortcuts').resolveAction({ key: event.keyCode, shift: event.shiftKey });
-    if (action) {
-      this.send(action);
-    }
-  },
   actions: {
     scrollTimeline() {
       let citiesElement = this.get('element');
       citiesElement.scrollLeft = this.get('selectedPosition') + this.get('startX') - this.get('endX');
-    },
-    search() {},
-    addEvent() {},
-    nextDay() {
-      this.set('isCurrent', false);
-      this.set('selectedTime', moment.unix(this.get('selectedTime')).add(1, 'days').unix());
-      this.set('displayTime', this.get('selectedTime'));
-    },
-    prevDay() {
-      this.set('isCurrent', false);
-      this.set('selectedTime', moment.unix(this.get('selectedTime')).subtract(1, 'days').unix());
-      this.set('displayTime', this.get('selectedTime'));
-    },
-    nextWeek() {
-      this.set('isCurrent', false);
-      this.set('selectedTime', moment.unix(this.get('selectedTime')).add(1, 'weeks').unix());
-      this.set('displayTime', this.timeDiff());
-    },
-    prevWeek() {
-      this.set('isCurrent', false);
-      this.set('selectedTime', moment.unix(this.get('selectedTime')).subtract(1, 'weeks').unix());
-      this.set('displayTime', this.timeDiff());
     },
     addNextHours(duration) {
       let lastTime;
@@ -199,10 +133,7 @@ export default Ember.Component.extend({
     toNow() {
       this.set('isCurrent', true);
       this.set('selectedTime', moment().utc().unix());
-      this.set('displayTime', Ember.computed('selectedTime', function() {
-        this.timer();
-        return this.get('selectedTime'); })
-      );
+      this.set('displayTime', this.timer);
     },
     hourClick(time) {
       console.log('hour event: ' + time);
