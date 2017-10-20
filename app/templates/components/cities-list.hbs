@@ -3,7 +3,9 @@
     {{#link-to 'search' classNames='search'}}<img src="assets/images/find.svg" class="search-icon">{{/link-to}}
   </div>
   <div>
-    <button {{action 'toNow'}}>Now</button>
+    {{#unless isCurrent}}
+      <button {{action 'toNow'}}>Now</button>
+    {{/unless}}
   </div>
 </header>
 {{#each selected as |city|}}
