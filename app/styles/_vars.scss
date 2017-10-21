@@ -1,15 +1,41 @@
+// Color palette
+
+$white: #ffffff;                // 0% black
+$off-white: #f2f2f2;            // 5% black
+
+$light-grey-lighter: #e6e6e6;   // 10% black
+$light-grey: #cccccc;           // 20% black
+$light-grey-darker: #b3b3b3;    // 30% black
+
+$medium-grey-lighter: #999999;  // 40% black
+$medium-grey: #808080;          // 50% black
+$medium-grey-darker: #666666;   // 60% black
+
+$dark-grey-lighter: #4d4d4d;    // 70% black
+$dark-grey: #333333;            // 80% black
+$dark-grey-darker: #1a1a1a;     // 90% black
+
+$black: #000000;                // 100% black
+
 $palette: (
-  text: rgb(77, 77, 77),
-  text-bright: rgb(255, 255, 255),
-  link: rgb(0, 155, 255),
-  header-bg: rgb(34, 34, 34),
+  text: $medium-grey,
+  text-bright: $white,
+  text-dull: $dark-grey,
+  link: $white,
+  header-bg: $black,
 );
+
+
+// Size
 
 $size: (
-  base: .5rem,
+  base: 16px,
 );
 
+
+// Animation
+
 $duration: (
-  hover: 0.5s,
-  fade-time: 0.25s
+  hover: 0.3s,
+  fade-time: 0.3s
 );

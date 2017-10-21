@@ -1,13 +1,11 @@
 <header>
-  <div>
-    <div class="search"><img src="assets/images/find.svg" class="search-icon" {{action 'search'}}></div>
+  <div class="search">
+    <span class="icon icon--search" {{action 'search'}}></span>
+    <span class="placeholder" {{action 'search'}}>Search cities</span>
   </div>
-  <div>
-    {{#unless isCurrent}}
-      <button {{action 'toNow'}}>Now</button>
-    {{/unless}}
-  </div>
+  <span class="icon icon--clock {{unless isCurrent 'dull'}}" {{action 'toNow'}}></span>
 </header>
+
 {{#each selected as |city|}}
   <div class="city">
     {{city-info city=city time=displayTime onTimeClick=(action 'addNextHours')}}

@@ -1,0 +1,33 @@
+.icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.icon--search {
+  background-image: url('../images/icons/white/Search.svg');
+}
+
+.icon--close {
+  background-image: url('../images/icons/white/Cross.svg');
+}
+
+.icon--tick {
+  background-image: url('../images/icons/white/Tick.svg');
+}
+
+.icon--clock {
+  background-image: url('../images/icons/white/Clock.svg');
+  float: right;
+}
+
+.icon--plus {
+  background-image: url('../images/icons/white/Plus.svg');
+}
+
+.icon--cross-small {
+  background-image: url('../images/icons/white/Cross (small).svg');
+}

@@ -107,7 +107,7 @@ export default Ember.Service.extend({
       {id: 97, name: 'Nassau', tz: 'America/Nassau'},
       {id: 98, name: 'New Delhi', tz: 'Asia/Kolkata'},
       {id: 99, name: 'New Orleans', tz: 'America/Chicago'},
-      {id: 100, name: 'Nassau', tz: 'America/Nassau'},
+      {id: 100, name: 'New York', tz: 'America/New_York'},
       {id: 101, name: 'Oslo', tz: 'Europe/Oslo'},
       {id: 102, name: 'Ottawa', tz: 'America/Toronto'},
       {id: 103, name: 'Paris', tz: 'Europe/Paris'},

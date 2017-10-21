@@ -1,0 +1,85 @@
+header {
+  position: fixed;
+  display: block;
+  height: 40px;
+  padding: 16px 0;
+  background-color: #000000;
+  // overflow: hidden;
+  width: 100vw;
+  max-width: 400px;
+  margin-left: calc(50vw - 200px);
+  // grid-auto-flow: column;
+  top: 0;
+  // align-items: center;
+  // justify-content: center;
+
+  @media screen and (max-width: 440px) {
+      max-width: 90vw;
+      margin-left: 5vw;
+  }
+
+  .icon--clock {
+    position: absolute;
+    right: 0;
+    top: 32px;
+
+    &.dull {
+      opacity: 0.2;
+    }
+  }
+
+  .search {
+    padding: 16px 0;
+
+    .placeholder {
+      display: block;
+      height: 24px;
+      width: 100vw;
+      max-width: 400px;
+      line-height: 24px;
+      margin-left: 40px;
+      color: _color(text-dull);
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 440px) {
+      max-width: 100%;
+    }
+
+    .icon--search {
+      position: absolute;
+      float: left;
+      margin-right: 16px;
+    }
+
+    input[type='text'] {
+      width: 100vw;
+      max-width: 360px;
+      padding: 0 0 16px 40px;
+      border-bottom: 1px solid $dark-grey;
+
+      @media screen and (max-width: 440px) {
+        max-width: 100%;
+      }
+    }
+
+    .icon--cross-small {
+      position: absolute;
+      top: 32px;
+      right: 64px;
+      opacity: 0.2;
+    }
+
+    .icon--close {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .done {
+      position: absolute;
+      top: 32px;
+      right: 0;
+    }
+  }
+}

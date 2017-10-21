@@ -1,16 +1,22 @@
 <header>
   <form action="" class="search">
-    <img src="assets/images/find.svg" class="search-icon">
-    {{input input=(action 'filter') value=value}}
-    <img src="assets/images/times.svg" class="close-icon" {{action 'resetSearch'}}>
+    <span class="icon icon--search" {{action 'search'}}></span>
+    {{input placeholder='Search cities' input=(action 'filter') value=value}}
+    {{#link-to 'index' class='done text-bright'}}Done{{/link-to}}
+    <span class="icon icon--cross-small" {{action 'resetSearch'}}></span>
   </form>
 </header>
+
 <div class="search-results">
   <p class="error">{{error}}</p>
   {{#each filteredCities as |city|}}
-  <div {{action 'toggleCity' city.id}}><i class="check">{{if (in-array array=selectedCities element=city.id) 'v '}}</i>{{city.name}}</div>
-  {{/each}}
-  <div>
-    {{#link-to 'index' tagName='button'}}Done{{/link-to}}
+  <div {{action 'toggleCity' city.id}}>
+    {{#if (in-array array=selectedCities element=city.id)}}
+      <span class="icon icon--tick"></span>
+    {{else}}
+      <span class="icon"></span>
+    {{/if}}
+    <span class="{{if (in-array array=selectedCities element=city.id) 'text-bright'}}">{{city.name}}</span>
   </div>
+  {{/each}}
 </div>
