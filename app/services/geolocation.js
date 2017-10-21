@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 export default Ember.Service.extend({
   coordinate: null,
@@ -7,6 +8,7 @@ export default Ember.Service.extend({
       navigator.geolocation.getCurrentPosition((position) => {
         this.set('coordinate', position.coords);
         this.set('timeoffset', moment().utcOffset());
+        console.log(position.coords, moment().utcOffset());
       }, (error) => console.log(error));
     } else {
       return null;
