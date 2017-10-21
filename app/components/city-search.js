@@ -9,6 +9,9 @@ export default Ember.Component.extend({
   filteredCities: Ember.computed('cities', function() {
     return this.get('cities').items.filter(item => this.get('selectedCities').some(elem => elem === item.id));
   }),
+  didInsertElement() {
+    this.get('element').querySelector('form.search input').focus();
+  },
   actions: {
     toggleCity(id) {
       let index = this.get('selectedCities').indexOf(id);
