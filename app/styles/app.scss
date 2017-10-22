@@ -6,6 +6,11 @@
 @import 'components/clock';
 @import 'components/header';
 
+:root {
+  --tx: 0;
+  --duration: '.5s';
+}
+
 body {
   font-family: "San Francisco", Helvetica, Arial, sans-serif;
   font-size: 16px;

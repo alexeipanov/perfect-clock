@@ -6,7 +6,7 @@
   <span class="icon icon--clock {{unless isCurrent 'dull'}}" {{action 'toNow'}}></span>
 </header>
 
-{{#each selected as |city|}}
+{{#each selectedCities as |city|}}
   <div class="city">
     {{city-info city=city time=displayTime onTimeClick=(action 'addNextHours')}}
     <div class="hours-wrapper text-small">
