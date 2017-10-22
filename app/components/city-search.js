@@ -12,7 +12,17 @@ export default Ember.Component.extend({
   didInsertElement() {
     this.get('element').querySelector('form.search input').focus();
   },
+  keyUp(event) {
+    event.preventDefault();
+    let action = this.get('shortcuts').resolveAction({ context: 'search', key: event.keyCode, shift: event.shiftKey });
+    if (action) {
+      this.send(action);
+    }
+  },
   actions: {
+    clock() {
+      this.get('controller').transitionToRoute('index');
+    },
     toggleCity(id) {
       let index = this.get('selectedCities').indexOf(id);
       if (index > -1) {

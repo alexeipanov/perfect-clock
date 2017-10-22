@@ -134,7 +134,8 @@ export default Ember.Component.extend({
   },
   keyUp(event) {
     event.preventDefault();
-    let action = this.get('shortcuts').resolveAction({ key: event.keyCode, shift: event.shiftKey });
+    console.log(event.keyCode);
+    let action = this.get('shortcuts').resolveAction({ context: 'index', key: event.keyCode, shift: event.shiftKey });
     if (action) {
       this.send(action);
     }
