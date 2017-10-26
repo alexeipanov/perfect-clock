@@ -30,10 +30,14 @@ export default Ember.Component.extend({
     this.send('addPrevHours', day);
     let citiesElement = this.get('element');
     citiesElement.focus();
+    citiesElement.addEventListener('scroll', this.onScroll);
     this.set('displayTime', Ember.computed('selectedTime', function() {
       this.timer();
       return this.get('selectedTime'); })
     );
+  },
+  onScroll() {
+    console.log('scroll');
   },
   timer() {
     return Ember.run.later(this, () => {
@@ -172,7 +176,7 @@ export default Ember.Component.extend({
       if (this.get('hours').length) {
         lastTime = moment.unix(this.get('hours.lastObject.time'));
       } else {
-        lastTime = moment().subtract(19, 'hours').minute(0).second(0).millisecond(0);
+        lastTime = moment().utc().startOf('day');
       }
       for (let i = 1; i <= duration; i++) {
         tmpHours.addObject({ time: lastTime.add(1, 'hours').unix() });

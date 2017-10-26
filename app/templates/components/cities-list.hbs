@@ -5,14 +5,26 @@
   </div>
   <span class="icon icon--clock {{unless isCurrent 'dull'}}" {{action 'toNow'}}></span>
 </header>
-
-{{#each selectedCities as |city|}}
-  <div class="city">
+{{#each selectedCities as |city index|}}
+  <div class="city" data-minutes="{{minutes-after-midnight timestamp=displayTime tz=city.tz city_id=index}}">
     {{city-info city=city time=displayTime onTimeClick=(action 'addNextHours')}}
-    <div class="hours-wrapper text-small">
-      {{#each hours as |hour|}}
-        <div class="hour {{if (is-working source=hour.time tz=city.tz) 'working'}}" data-timestamp="{{hour.time}}" {{action 'hourClick' hour.time}}>{{moment-format (local-time source=hour.time tz=city.tz) 'h'}}</div>
-      {{/each}}
+    <div class="timeline-wrapper">
+      <div class="days-wrapper city-{{index}} o{{local-offset tz=city.tz}}">
+        {{#each hours as |hour index|}}
+          {{#if (is-first-hour index=index)}}
+            <div class="day {{if (is-current-day day=hour.time current=displayTime tz=city.tz) 'current'}}">
+              <div class="day-label">
+                {{moment-format (utc-time source=hour.time) 'ddd, D MMM YYYY'}}
+              </div>
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div class="hours-wrapper text-small">
+        {{#each hours as |hour|}}
+          <div class="hour {{if (is-working source=hour.time tz=city.tz) 'working'}}" data-timestamp="{{hour.time}}" {{action 'hourClick' hour.time}}>{{moment-format (local-time source=hour.time tz=city.tz) 'h'}}</div>
+        {{/each}}
+      </div>
     </div>
   </div>
 {{/each}}

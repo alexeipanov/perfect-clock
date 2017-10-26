@@ -84,25 +84,123 @@ section.cities {
     }
   }
 
-  .hours-wrapper {
-    margin-top: 56px;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 60px;
+  .timeline-wrapper {
+    margin-top: 16px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
     transform: translateX(var(--tx));
     transition: transform var(--duration) ease-in-out;
     will-change: transform;
 
+    .days-wrapper {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1440px;
+      transition: transform 0s linear;
+      will-change: transform;
 
-    .hour {
-      border-top: 1px solid _color(text-dull);
-      color: _color(text-dull);
-      padding: 8px 0;
+      .day {
+        color: _color(text-dull);
+        padding: 8px 16px;
+        position: relative;
 
-      &.working {
-        border-top: 2px solid _color(text-bright);
-        color: _color(text-bright);
+        .day-label {
+          width: 150px;
+        }
+      }
+
+      &.city-0 {
+
+        .day {
+
+          &.current {
+
+            .day-label {
+              transform: translateX(var(--dx0));
+              transition: transform var(--dd0) var(--dt0);
+              will-change: transform;
+            }
+          }
+        }
+      }
+
+      &.city-1 {
+
+        .day {
+
+          &.current {
+
+            .day-label {
+              transform: translateX(var(--dx1));
+              transition: transform var(--dd1) var(--dt1);
+              will-change: transform;
+            }
+          }
+        }
+      }
+
+      &.city-2 {
+
+        .day {
+
+          &.current {
+
+            .day-label {
+              transform: translateX(var(--dx2));
+              transition: transform var(--dd2) var(--dt2);
+              will-change: transform;
+            }
+          }
+        }
+      }
+
+      &.city-3 {
+
+        .day {
+
+          &.current {
+
+            .day-label {
+              transform: translateX(var(--dx3));
+              transition: transform var(--dd3) var(--dt3);
+              will-change: transform;
+            }
+          }
+        }
+      }
+
+      &.city-4 {
+
+        .day {
+
+          &.current {
+
+            .day-label {
+              transform: translateX(var(--dx4));
+              transition: transform var(--dd4) var(--dt4);
+              will-change: transform;
+            }
+          }
+        }
+      }
+    }
+
+    .hours-wrapper {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 60px;
+
+      .hour {
+        border-top: 1px solid _color(text-dull);
+        color: _color(text-dull);
+        padding: 8px 0;
+
+        &.working {
+          border-top: 2px solid _color(text-bright);
+          color: _color(text-bright);
+        }
       }
     }
   }
+
 }
