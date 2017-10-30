@@ -4,14 +4,10 @@ header {
   height: 40px;
   padding: 16px 0;
   background-color: #000000;
-  // overflow: hidden;
   width: 100vw;
   max-width: 400px;
   margin-left: calc(50vw - 200px);
-  // grid-auto-flow: column;
   top: 0;
-  // align-items: center;
-  // justify-content: center;
 
   @media screen and (max-width: 440px) {
       max-width: 90vw;

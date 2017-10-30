@@ -78,8 +78,6 @@ export default Ember.Component.extend({
   },
   timelineStart(x) {
     let citiesElement = this.get('element');
-    // let infoElements = document.getElementsByClassName('info');
-    // Array.from(infoElements).forEach((item) => item.classList.add('fadeout'));
     this.set('startX', x);
     this.set('isDragging', true);
     this.set('isCurrent', false);
@@ -122,7 +120,7 @@ export default Ember.Component.extend({
   },
   touchEnd(event) {
     event.preventDefault();
-    this.timelineEnd();
+    this.timelineEnd(event.changedTouches[event.changedTouches.length - 1].clientX);
   },
   mouseDown(event) {
     event.preventDefault();
