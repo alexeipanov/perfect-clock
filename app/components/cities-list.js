@@ -101,9 +101,6 @@ export default Ember.Component.extend({
     }
   },
    timelineEnd(x) {
-    let style = document.documentElement.style;
-    style.setProperty('--tx', this.get('selectedPosition') - this.get('startX') + x + 'px');
-    style.setProperty('--duration', '0s');
     this.set('endX', x);
     this.set('selectedTime', this.timeDiff());
     this.set('displayTime', this.get('selectedTime'));
