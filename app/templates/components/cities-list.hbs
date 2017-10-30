@@ -12,7 +12,7 @@
       <div class="days-wrapper city-{{index}} o{{local-offset tz=city.tz}}">
         {{#each hours as |hour index|}}
           {{#if (is-first-hour index=index)}}
-            <div class="day {{if (is-current-day day=hour.time current=displayTime tz=city.tz) 'current'}}">
+            <div class="day {{if (is-current-day day=hour.time current=displayTime tz=city.tz) 'current'}} {{if (is-previous-day day=hour.time current=displayTime tz=city.tz) 'previous'}}">
               <div class="day-label">
                 {{moment-format (utc-time source=hour.time) 'ddd, D MMM YYYY'}}
               </div>
