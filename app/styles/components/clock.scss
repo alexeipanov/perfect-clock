@@ -77,69 +77,24 @@ section.cities {
         }
       }
 
-      &.city-0 {
-
-        .day {
-
-          &.current {
-
-            .day-label {
-              transform: translateX(var(--dx0));
-            }
-          }
-        }
+      &.city-0 .day.current .day-label {
+        transform: translateX(var(--dx0));
       }
 
-      &.city-1 {
-
-        .day {
-
-          &.current {
-
-            .day-label {
-              transform: translateX(var(--dx1));
-            }
-          }
-        }
+      &.city-1 .day.current .day-label {
+        transform: translateX(var(--dx1));
       }
 
-      &.city-2 {
-
-        .day {
-
-          &.current {
-
-            .day-label {
-              transform: translateX(var(--dx2));
-            }
-          }
-        }
+      &.city-2 .day.current .day-label {
+        transform: translateX(var(--dx2));
       }
 
-      &.city-3 {
-
-        .day {
-
-          &.current {
-
-            .day-label {
-              transform: translateX(var(--dx3));
-            }
-          }
-        }
+      &.city-3 .day.current .day-label {
+        transform: translateX(var(--dx3));
       }
 
-      &.city-4 {
-
-        .day {
-
-          &.current {
-
-            .day-label {
-              transform: translateX(var(--dx4));
-            }
-          }
-        }
+      &.city-4 .day.current .day-label {
+        transform: translateX(var(--dx4));
       }
     }
 
@@ -160,5 +115,4 @@ section.cities {
       }
     }
   }
-
 }

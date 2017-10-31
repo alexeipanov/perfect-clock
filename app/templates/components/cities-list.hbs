@@ -1,9 +1,9 @@
 <header>
   <div class="search">
-    <span class="icon icon--search" {{action 'search'}}></span>
-    <span class="placeholder" {{action 'search'}}>Search cities</span>
+    <span class="icon icon--search" ontouchstart={{action 'search'}} onclick={{action 'search'}}></span>
+    <span class="placeholder">Search cities</span>
   </div>
-  <span class="icon icon--clock {{unless isCurrent 'dull'}}" {{action 'toNow'}}></span>
+  <span class="icon icon--clock {{unless isCurrent 'dull'}}" ontouchstart={{action 'toNow'}} onclick={{action 'toNow'}}></span>
 </header>
 {{#each selectedCities as |city index|}}
   <div class="city" data-minutes="{{minutes-after-midnight timestamp=displayTime tz=city.tz city_id=index}}">
@@ -22,7 +22,7 @@
       </div>
       <div class="hours-wrapper text-small">
         {{#each hours as |hour|}}
-          <div class="hour {{if (is-working source=hour.time tz=city.tz) 'working'}}" data-timestamp="{{hour.time}}" {{action 'hourClick' hour.time}}>{{moment-format (local-time source=hour.time tz=city.tz) 'h'}}</div>
+          <div class="hour {{if (is-working source=hour.time tz=city.tz) 'working'}}" data-timestamp="{{hour.time}}" ontouchstart={{action 'hourClick' hour.time}} onclick={{action 'hourClick' hour.time}}>{{moment-format (local-time source=hour.time tz=city.tz) 'h'}}</div>
         {{/each}}
       </div>
     </div>
