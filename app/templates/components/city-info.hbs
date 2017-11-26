@@ -1,4 +1,4 @@
-<div class="city-title text-bright {{if (is-working source=time tz=city.tz) 'working'}}">{{city.name}}</div>
+<div class="city-title text-bright {{hourClass}}">{{city.name}}</div>
 <div class="time text-bright" ontouchstart={{action 'onTimeClick' 24}} onclick={{action 'onTimeClick' 24}}>{{moment-format (local-time source=time tz=city.tz) 'h:mm:ss a'}}</div>
-<div class="{{if (is-working source=time tz=city.tz) 'working'}}"></div>
+<div class="{{hourClass}}"></div>
 <div></div>

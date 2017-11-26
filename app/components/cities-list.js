@@ -10,6 +10,9 @@ export default Ember.Component.extend({
   attributeBindings: ['tabindex'],
   tabindex: 1,
   hours: [],
+  computedHours: Ember.computed('hours.[]', function() {
+    return this.get('hours');
+  }),
   startX: null,
   endX: null,
   isDragging: false,
@@ -24,6 +27,7 @@ export default Ember.Component.extend({
     });
   }),
   didInsertElement() {
+    this.set('hours', []);
     this.addObserver('selectedTime', this, 'timeChange');
     this.set('selectedTime', moment().utc().unix());
     this.send('addNextHours', week);
@@ -113,7 +117,7 @@ export default Ember.Component.extend({
   },
   touchMove(event) {
     event.preventDefault();
-    this.timelineMove(event.changedTouches[event.changedTouches.length - 1].clientX);
+    Ember.run.throttle(this, this.timelineMove, event.changedTouches[event.changedTouches.length - 1].clientX, 10);
   },
   touchEnd(event) {
     event.preventDefault();
@@ -125,7 +129,7 @@ export default Ember.Component.extend({
   },
   mouseMove(event) {
     event.preventDefault();
-    this.timelineMove(event.originalEvent.clientX);
+    Ember.run.throttle(this, this.timelineMove, event.originalEvent.clientX, 10);
   },
   mouseUp(event) {
     event.preventDefault();
@@ -170,11 +174,15 @@ export default Ember.Component.extend({
       tmpHours = [];
       if (this.get('hours').length) {
         lastTime = moment.unix(this.get('hours.lastObject.time'));
+        for (let i = 1; i <= duration; i++) {
+          tmpHours.addObject({ time: lastTime.add(1, 'hours').unix() });
+        }
       } else {
         lastTime = moment().utc().startOf('day');
-      }
-      for (let i = 1; i <= duration; i++) {
-        tmpHours.addObject({ time: lastTime.add(1, 'hours').unix() });
+        tmpHours.addObject({ time: lastTime.unix() });
+        for (let i = 1; i < duration; i++) {
+          tmpHours.addObject({ time: lastTime.add(1, 'hours').unix() });
+        }
       }
       this.get('hours').addObjects(tmpHours);
     },
