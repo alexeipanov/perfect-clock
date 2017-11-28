@@ -1,9 +1,9 @@
 <header>
   <div class="search">
-    <span class="icon icon--search" ontouchstart={{action 'search'}} onclick={{action 'search'}}></span>
+    <span class="icon icon--search" ontouchstart={{action 'search'}} {{action 'search'}}></span>
     <span class="placeholder">Search cities</span>
   </div>
-  <span class="icon icon--clock {{unless isCurrent 'dull'}}" ontouchstart={{action 'toNow'}} onclick={{action 'toNow'}}></span>
+  <span class="icon icon--clock {{unless isCurrent 'dull'}}" ontouchstart={{action 'toNow'}} {{action 'toNow'}}></span>
 </header>
 {{#each selectedCities as |city index|}}
   <div class="city" data-minutes="{{minutes-after-midnight timestamp=displayTime tz=city.tz city_id=index}}">

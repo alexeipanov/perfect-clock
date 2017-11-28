@@ -100,7 +100,7 @@ export default Ember.Component.extend({
       let citiesElement = this.get('element');
       var offset = (moment.unix(this.get('displayTime')).diff(moment.unix(this.get('hours.firstObject.time')), 'minutes')) / (this.get('hours').length * 60) * citiesElement.scrollWidth - 1 / 2 * citiesElement.offsetWidth;
       let style = document.documentElement.style;
-      style.setProperty('--tx', -1 * offset + 'px');
+      style.setProperty('--tx', `-${offset}px`);
       style.setProperty('--duration', '0s');
     }
   },
@@ -117,7 +117,7 @@ export default Ember.Component.extend({
   },
   touchMove(event) {
     event.preventDefault();
-    Ember.run.throttle(this, this.timelineMove, event.changedTouches[event.changedTouches.length - 1].clientX, 10);
+    Ember.run.throttle(this, this.timelineMove, event.changedTouches[event.changedTouches.length - 1].clientX, 50);
   },
   touchEnd(event) {
     event.preventDefault();
@@ -129,7 +129,7 @@ export default Ember.Component.extend({
   },
   mouseMove(event) {
     event.preventDefault();
-    Ember.run.throttle(this, this.timelineMove, event.originalEvent.clientX, 10);
+    Ember.run.throttle(this, this.timelineMove, event.originalEvent.clientX, 50);
   },
   mouseUp(event) {
     event.preventDefault();
@@ -145,9 +145,6 @@ export default Ember.Component.extend({
   actions: {
     search() {
       this.get('controller').transitionToRoute('search');
-    },
-    addEvent() {
-      console.log('add event');
     },
     nextDay() {
       this.set('isCurrent', false);
@@ -202,8 +199,5 @@ export default Ember.Component.extend({
         return this.get('selectedTime'); })
       );
     },
-    hourClick(time) {
-      console.log('hour event: ' + time);
-    }
   }
 });
