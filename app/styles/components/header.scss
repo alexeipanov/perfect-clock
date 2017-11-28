@@ -20,7 +20,7 @@ header {
     top: 32px;
 
     &.dull {
-      opacity: 0.2;
+      opacity: 0.3;
     }
   }
 
@@ -49,21 +49,22 @@ header {
     }
 
     input[type='text'] {
-      width: 100vw;
+      width: calc(100vw - 40px);
       max-width: 360px;
-      padding: 0 0 16px 40px;
+      padding: 0 0 16px 0;
+      margin-left: 40px;
       border-bottom: 1px solid $dark-grey;
 
-      @media screen and (max-width: 440px) {
-        max-width: 100%;
-      }
+      // @media screen and (max-width: 440px) {
+      //   max-width: 90vw;
+      // }
     }
 
     .icon--cross-small {
       position: absolute;
       top: 32px;
       right: 64px;
-      opacity: 0.2;
+      opacity: 0.3;
     }
 
     .icon--close {

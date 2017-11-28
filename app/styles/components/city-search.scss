@@ -1,9 +1,18 @@
 section.search {
   margin-top: 64px;
   width: 100vw;
+  height: 100vh;
+
+  .error {
+    color: #DB4F60;
+    margin-top: 32px;
+    text-align: left;
+  }
 
   .search-results {
     display: grid;
+    max-width: 90vw;
+    margin: 0 auto;
     justify-items: center;
 
     .icon {

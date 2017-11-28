@@ -1,6 +1,6 @@
 <header>
-  <div class="search">
-    <span class="icon icon--search" ontouchstart={{action 'search'}} {{action 'search'}}></span>
+  <div class="search" ontouchstart={{action 'search'}} onclick={{action 'search'}}>
+    <span class="icon icon--search"></span>
     <span class="placeholder">Search cities</span>
   </div>
   <span class="icon icon--clock {{unless isCurrent 'dull'}}" ontouchstart={{action 'toNow'}} {{action 'toNow'}}></span>
