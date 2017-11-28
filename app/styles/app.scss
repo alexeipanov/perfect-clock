@@ -12,7 +12,11 @@
   --duration: '.5s';
 }
 
-body {
+html {
+  background: black;
+}
+
+body, .search input[type='text'] {
   font-family: "San Francisco", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
