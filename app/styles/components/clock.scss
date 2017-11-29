@@ -17,6 +17,17 @@ section.cities {
     display: grid;
   }
 
+  .now-line {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    left: calc(50vw - 1px);
+    top: 10vh;
+    width: 1px;
+    background-color: #DB4F60;
+    height: 90vh;
+  }
+
   .info {
     position: fixed;
     display: grid;
@@ -113,7 +124,7 @@ section.cities {
         padding: 8px 0;
 
         &.working {
-          border-top: 2px solid _color(text-bright);
+          border-top: 1px solid _color(text-bright);
           color: _color(text-bright);
         }
       }

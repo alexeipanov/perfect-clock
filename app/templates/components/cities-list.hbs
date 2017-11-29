@@ -5,6 +5,7 @@
   </div>
   <span class="icon icon--clock {{unless isCurrent 'dull'}}" ontouchstart={{action 'toNow'}} {{action 'toNow'}}></span>
 </header>
+<div class="now-line"></div>
 {{#each selectedCities as |city index|}}
   <div class="city" data-minutes="{{minutes-after-midnight timestamp=displayTime tz=city.tz city_id=index}}">
     {{city-info city=city time=displayTime onTimeClick=(action 'addNextHours')}}
